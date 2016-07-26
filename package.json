@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "start-dev": "nodemon router.js && server.js",
+    "build": "browserify -t hbsfy router.js -g uglifyify > bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,8 +25,15 @@
   "dependencies": {
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "handlebars": "^4.0.5",
+    "hbsfy": "^2.7.0",
     "nationbuilder": "^1.0.8",
     "nodemon": "^1.9.2",
-    "superagent": "^2.1.0"
+    "superagent": "^2.1.0",
+    "xhr": "^2.2.2"
+  },
+  "devDependencies": {
+    "hbsfy": "^2.7.0",
+    "uglifyify": "^3.0.2"
   }
 }
