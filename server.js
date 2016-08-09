@@ -31,21 +31,22 @@ app.get('/confirmAdd', function(req, res){
 
 /////**** Find a Person ****//////
 
-// request
-//   .get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin@forpurpose.co.nz&access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
-//   .set('Accept', 'application/json')
-//   .end(function(err, res){
-//     if (err) {
-//       console.log('Oh no! error', err );
-//     } else {
-//       //console.log('yay got ' + JSON.stringify(res.body))
-//       console.log('Diving Deeper: ' + JSON.stringify(res.body.person.first_name),
-//                                       JSON.stringify(res.body.person.last_name),
-//                                       JSON.stringify(res.body.person.phone));
-//     }
-//   })
+request
+  .get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin@forpurpose.co.nz&access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+  .set('Accept', 'application/json')
+  //.set('209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e', 'kristingillies.nationbuilder.com')
+  .end(function(err, res){
+    if (err) {
+      console.log('Oh no! error', err );
+    } else {
+      //console.log('yay got ' + JSON.stringify(res.body))
+      console.log('Diving Deeper: ' + JSON.stringify(res.body.person.first_name),
+                                      JSON.stringify(res.body.person.last_name),
+                                      JSON.stringify(res.body.person.phone));
+    }
+  })
 
-//////*****Create New Person (hardcode)****//////
+//////*****Create A Person ****//////
 
 // var postNow = function() {
 //   request
@@ -71,25 +72,45 @@ app.get('/confirmAdd', function(req, res){
 
 //postNow();
 
-//////**** Create Three Basic Pages ****//////
+//////*****Update A Person ****//////
 
-request
-  .post('https://kristingillies/api/v1/sites/1/pages/basic_pages')
-  .set('Accept', 'application/json')
-  .send ({
-      "basic_page": {
-        "name": "A page here",
-        "content": "<p>some content</p>",
-        "status": "published"
-      }
-    })
-  .end(function(err, res){
-    if (err) {
-      console.log("I'm sorry, there's been an error: ", err)
-    } else {
-      console.log("success: ", res)
-    }
-  })
+
+
+
+//////*****Delete A Person ****//////
+
+// request
+//   .del('https://kristingillies.nationbuilder.com/api/v1/people/1245?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+//   .set('Accept', 'application/json')
+//   .end(function(err, res){
+//     if (err) {
+//       console.log("I'm sorry, there's been an error creating a person: ", err)
+//       } else {
+//         console.log("success, person has been deleted: ", res.body)
+//       }
+//     })
+
+
+//////**** Create Three Pages ****//////
+
+// request
+//   .post('https://kristingillies.nationbuilder.com/api/v1/sites/kristingillies/pages/basic_pages')
+//   .set('Accept', 'application/json')
+//   .set('209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e', 'kristingillies')
+//   .send ({
+//       "basic_page": {
+//         "name": "A page here",
+//         "content": "<p>some content</p>",
+//         "status": "published"
+//       }
+//     })
+//   .end(function(err, res){
+//     if (err) {
+//       console.log("I'm sorry, there's been an error: ", err)
+//     } else {
+//       console.log("success: ", res)
+//     }
+//   })
 
 
 
