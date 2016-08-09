@@ -11,10 +11,15 @@ app.get('/', function (req, res) {
   res.send('Nationbuilder bitchez')
 })
 
-app.post('/newPerson', function (req, res) {
+//*note to self this only works as get request*//
+app.get('/newperson', function (req, res) {
+  console.log("U R Kool")
   res.render('newPerson')
 })
 
+app.get('/confirmAdd', function(req, res){
+  res.render('confirmAdd')
+})
 
 
 app.listen(5000)
