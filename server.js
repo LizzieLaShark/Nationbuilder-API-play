@@ -4,12 +4,12 @@ var hbs = require('hbs')
 var request = require('superagent');
 var env = require('dotenv').config();
 var $ = require('jquery');
-// var himalaya = require('himalaya');
-// var html = require('fs').readFileSync('./newPerson.hbs');
-// var json = himalaya.parse(html);
+var himalaya = require('himalaya');
+var html = require('fs').readFileSync('./views/newPerson.hbs');
+var json = himalaya.parse(html);
 
 // var confirmAdd = require('../views/confirmAdd.hbs')
-// var newPerson = require('./views/newPerson.hbs')
+var newPerson = require('./views/newPerson.hbs')
 
 
 app.set('view engine', 'hbs');
@@ -39,7 +39,7 @@ app.get('/confirmAdd', function(req, res){
 
 
 /////**** Find a Person ****//////
-
+var findPerson = function() {
 request
   .get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin%40forpurpose.co.nz&access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
   .set('Accept', 'application/json')
@@ -53,10 +53,13 @@ request
                                       JSON.stringify(res.body.person.phone));
     }
   })
+}
+
+//findPerson()
 
 //////*****Create A Person ****//////
 
-var postNow = function() {
+var createPerson = function() {
   request
     .post('https://kristingillies.nationbuilder.com/api/v1/people?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
     .set('Accept', 'application/json')
@@ -78,7 +81,7 @@ var postNow = function() {
     })
 }
 
-//postNow()
+//createPerson()
 
 //////*****Update A Person ****//////
 
@@ -129,6 +132,7 @@ request
 ///**** Sample Page ****///
 
 var createSamplePage = function() {
+
 request
   .post('https://kristingillies.nationbuilder.com/api/v1/sites/sandbox1455/pages/basic_pages?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
   .set('Accept', 'application/json')
@@ -154,13 +158,32 @@ request
 
 ///**** Basic Sign-Up Page ****///
 
+//
+// $(document).ready(function() {
+//
+//   console.log("listeners ready")
+//
+//
+//   $("#submitButton").click(function(e) {
+//     e.preventDefault()
+//
+//
+//     // request
+//     //   .post('https://kristingillies.nationbuilder.com/api/v1/people?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+//     //   .set('Accept', 'application/json')
+//     //   .send(JSONd)
+//     //   .end(function(res, err){
+//     //     res.send('done')
+//     //  })
+//
+//   })
+
+// }) //close doc ready
 
 
 
 
 ///**** Display Some People on Basic Page ****///
-
-
 
 
 
