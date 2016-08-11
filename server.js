@@ -4,9 +4,9 @@ var hbs = require('hbs')
 var request = require('superagent');
 var env = require('dotenv').config();
 var $ = require('jquery');
-var himalaya = require('himalaya');
-var html = require('fs').readFileSync('./newPerson.hbs');
-var json = himalaya.parse(html);
+// var himalaya = require('himalaya');
+// var html = require('fs').readFileSync('./newPerson.hbs');
+// var json = himalaya.parse(html);
 
 // var confirmAdd = require('../views/confirmAdd.hbs')
 // var newPerson = require('./views/newPerson.hbs')
@@ -78,9 +78,29 @@ var postNow = function() {
     })
 }
 
+//postNow()
+
 //////*****Update A Person ****//////
 
+var updatePerson = function() {
+  request
+    .put('https://kristingillies.nationbuilder.com/api/v1/people/1259?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+    .set('Accept', 'application/json')
+    .send({
+      "person": {
+      "sex": "F"
+        }
+      })
+    .end(function(err, res){
+      if (err) {
+        console.log("I'm sorry, there's been an error creating a person: ", err)
+      } else {
+        console.log("success: ", res.body, "res status: ", res.status)
+      }
+    })
+}
 
+//updatePerson()
 
 
 //////*****Delete A Person ****//////
@@ -98,12 +118,17 @@ request
   })
 }
 
+//deletePerson()
+
+
 ///////////////////////////////////////
 //////**** Sites and People ****//////
 /////////////////////////////////////
 
+
 ///**** Sample Page ****///
 
+var createSamplePage = function() {
 request
   .post('https://kristingillies.nationbuilder.com/api/v1/sites/sandbox1455/pages/basic_pages?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
   .set('Accept', 'application/json')
@@ -122,6 +147,10 @@ request
       console.log("success: ", res.body, "status: ", res.status)
     }
   })
+}
+
+//createSamplePage()
+
 
 ///**** Basic Sign-Up Page ****///
 
