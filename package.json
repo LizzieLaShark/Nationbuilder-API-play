@@ -4,8 +4,10 @@
   "description": "getting familiar with the nationbuilder api",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js && index.js",
-    "start-dev": "nodemon router.js && server.js",
+    "start": "node server.js",
+    "build": "browserify -t hbsfy ./client/index.js -o ./public/js/bundle.js -dv",
+    "watch": "watchify -t hbsfy ./client/index.js -o ./public/js/bundle.js -dv",
+    "start-dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
