@@ -3,7 +3,8 @@ var app = express()
 var hbs = require('hbs')
 var request = require('superagent');
 var env = require('dotenv').config();
-var $ = require('jquery');
+//var $ = require('jquery');
+
 
 var himalaya = require('himalaya');
 var html = require('fs').readFileSync('./views/newPerson.hbs');
@@ -26,10 +27,10 @@ app.get('/', function (req, res) {
   res.send('Nationbuilder bitchez')
 })
 
-// app.get('/newperson', function (req, res) {
-//   console.log("U R Kool")
-//   res.render('newPerson')
-// })
+app.get('/newperson', function (req, res) {
+  console.log("U R Kool")
+  res.render('newPerson')
+})
 
 app.get('/confirmAdd', function(req, res){
   res.render('confirmAdd')
@@ -163,7 +164,7 @@ request
 
 var createPersonFromForm = function() {
 
-  //var formData = JSON.stringify($(".addNewPerson").serializeArray());
+  var formData = JSON.stringify($(".addNewPerson").serializeArray());
 
   request
     .post("https://kristingillies.nationbuilder.com/api/v1/people?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e")
@@ -179,7 +180,7 @@ var createPersonFromForm = function() {
 
 }
 
-createPersonFromForm()
+//createPersonFromForm()
 
 
 
