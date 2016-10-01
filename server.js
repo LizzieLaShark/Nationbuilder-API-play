@@ -15,9 +15,10 @@ var index = require("./client/index.js")
 // var confirmAdd = require('../views/confirmAdd.hbs')
 var newPerson = require('./views/newPerson.hbs')
 
-
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
+app.use(express.static('public'));
+app.use(express.static('client'));
 
 console.log("Weeee! Listenin to your crazy code rants on port 5000")
 
