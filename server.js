@@ -2,34 +2,41 @@ var express = require('express')
 var app = express()
 var hbs = require('hbs')
 var request = require('superagent');
-var env = require('dotenv').config();
+require('dotenv').config();
+var bodyParser = require('body-parser')
 //var $ = require('jquery');
 
 
-var himalaya = require('himalaya');
-var html = require('fs').readFileSync('./views/newPerson.hbs');
-var json = himalaya.parse(html);
+// var himalaya = require('himalaya');
+// var html = require('fs').readFileSync('./views/newPerson.hbs');
+// var json = himalaya.parse(html);
 
-var index = require("./client/index.js")
+// var index = require("./client/index.js")
 
 // var confirmAdd = require('../views/confirmAdd.hbs')
-var newPerson = require('./views/newPerson.hbs')
+// var newPerson = require('./views/newPerson.hbs')
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
-app.use(express.static('public'));
-app.use(express.static('client'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+// app.use(express.static('public'));
+// app.use(express.static('client'));
 
-console.log("Weeee! Listenin to your crazy code rants on port 5000")
+
 
 //////**** Routes ****//////
 
 app.get('/', function (req, res) {
-  res.send('Nationbuilder bitchez')
+  request.get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin%40forpurpose.co.nz&access_token='+process.env.access_token)
+    .set('Accept', 'application/json')
+    .end(function(err, data) {
+      res.json(data)
+    })
 })
 
 app.get('/newperson', function (req, res) {
-  console.log("U R Kool")
+  // console.log("U R Kool")
   res.render('newPerson')
 })
 
@@ -37,6 +44,20 @@ app.get('/confirmAdd', function(req, res){
   res.render('confirmAdd')
 })
 
+app.post('/addperson', function(req, res) {
+  request.post('https://kristingillies.nationbuilder.com/api/v1/people?access_token='+process.env.access_token)
+    .send({ person: req.body })
+    .set('Content-Type', 'application/json')
+    .accept('application/json')
+    .end(function(err, data) {
+      // res.send(data)
+      // var response = JSON.parse(data)
+      console.log(data.body)
+      res.render('showPerson', data.body)
+    })
+
+  // res.send(req.body)
+})
 
 /////////////////////////////////////
 //////////**** People ****//////////
@@ -218,4 +239,6 @@ var createPersonFromForm = function() {
 
 
 
-app.listen(5000)
+app.listen(5000, function() {
+  console.log("Weeee! Listenin to your crazy code rants on port 5000")
+})
