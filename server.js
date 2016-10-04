@@ -6,9 +6,9 @@ var env = require('dotenv').config();
 //var $ = require('jquery');
 
 
-var himalaya = require('himalaya');
-var html = require('fs').readFileSync('./views/newPerson.hbs');
-var json = himalaya.parse(html);
+// var himalaya = require('himalaya');
+// var html = require('fs').readFileSync('./views/newPerson.hbs');
+// var json = himalaya.parse(html);
 
 var index = require("./client/index.js")
 
