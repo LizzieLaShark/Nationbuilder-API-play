@@ -28,11 +28,12 @@ app.use(bodyParser.json())
 //////**** Routes ****//////
 
 app.get('/', function (req, res) {
-  request.get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin%40forpurpose.co.nz&access_token='+process.env.access_token)
-    .set('Accept', 'application/json')
-    .end(function(err, data) {
-      res.json(data)
-    })
+  // request.get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin%40forpurpose.co.nz&access_token='+process.env.access_token)
+  //   .set('Accept', 'application/json')
+  //   .end(function(err, data) {
+  //     res.render(data)
+  res.send("homepage!")
+    //})
 })
 
 app.get('/newperson', function (req, res) {
@@ -44,16 +45,41 @@ app.get('/confirmAdd', function(req, res){
   res.render('confirmAdd')
 })
 
-app.post('/addperson', function(req, res) {
-  request.post('https://kristingillies.nationbuilder.com/api/v1/people?access_token='+process.env.access_token)
-    .send({ person: req.body })
+app.get('/editEvent', function(req, res){
+  res.render('editEvent')
+})
+
+
+app.post('/editedEvent', function (req, res){
+  request
+    .put('https://kristingillies.nationbuilder.com/api/v1/sites/sandbox1455/pages/events/16?access_token='+ process.env.access_token)
+    .send({ event: req.body })
     .set('Content-Type', 'application/json')
     .accept('application/json')
+    .end(function(err, data){
+      res.send(data.body)
+      console.log("this is data.body: ", data.body)
+      res.render(data.body)
+    })
+})
+
+/////////////////////////////////////
+///////add new person from form ////
+/////////////////////////////////////
+
+
+
+
+app.post('/addperson', function(req, res) { //sending back to server (/addPerson comes from the HTML form itself)
+  request.post('https://kristingillies.nationbuilder.com/api/v1/people?access_token='+ process.env.access_token)
+    .send({ person: req.body }) // person here comes from the format of JSON expected by the API
+    .set('Content-Type', 'application/json')
+    .accept('application/json') //because we're sending back to the server we need to tell it that we accept JSON. Same as above but for the returning request.
     .end(function(err, data) {
       // res.send(data)
       // var response = JSON.parse(data)
       console.log(data.body)
-      res.render('showPerson', data.body)
+      res.render('showPerson', data.body) //hbs file from views
     })
 
   // res.send(req.body)

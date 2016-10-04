@@ -1,0 +1,28 @@
+<form class="editEventForm" action="/editedEvent" method="post">
+  <div>
+    <label for="id">Event ID:</label>
+    <input type="text" id="id" name="id" /><br>
+    <label for="status">do you with for your event to appear listed or unlisted?:</label>
+    <input type="text" id="status" name="status" /><br>
+  </div>
+
+  <div>
+    <label for="name">Edit Event Name:</label>
+    <input type="text" id="name" name="name" />
+  </div>
+
+  <div>
+    <label for="intro">Edit intro to your event:</label>
+    <input type="text" id="intro" name="intro" />
+  </div>
+
+  <div class="times">
+    <label for="start_time">Edit start time of your event:</label>
+    <input type="datetime" id="start_time" name="start_time" />
+    <label for="end_time">Edit end time of your event:</label>
+    <input type="datetime" id="end_time" name="end_time" />
+  </div>
+
+  <input class="submitButton" type="submit" value="Submit"><br>
+  <input class="testButton" type="button" value="test listeners"><br>
+</form>
