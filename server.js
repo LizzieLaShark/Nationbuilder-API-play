@@ -4,40 +4,20 @@ var hbs = require('hbs')
 var request = require('superagent');
 require('dotenv').config();
 var bodyParser = require('body-parser')
-//var $ = require('jquery');
-
-
-// var himalaya = require('himalaya');
-// var html = require('fs').readFileSync('./views/newPerson.hbs');
-// var json = himalaya.parse(html);
-
-// var index = require("./client/index.js")
-
-// var confirmAdd = require('../views/confirmAdd.hbs')
-// var newPerson = require('./views/newPerson.hbs')
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-// app.use(express.static('public'));
-// app.use(express.static('client'));
-
 
 
 //////**** Routes ****//////
 
 app.get('/', function (req, res) {
-  // request.get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin%40forpurpose.co.nz&access_token='+process.env.access_token)
-  //   .set('Accept', 'application/json')
-  //   .end(function(err, data) {
-  //     res.render(data)
   res.send("homepage!")
-    //})
 })
 
 app.get('/newperson', function (req, res) {
-  // console.log("U R Kool")
   res.render('newPerson')
 })
 
@@ -49,6 +29,43 @@ app.get('/editEvent', function(req, res){
   res.render('editEvent')
 })
 
+////////////////////////////////
+////////////Events/////////////
+//////////////////////////////
+
+
+/////**** Create an event ****//////
+
+request
+  .post('https://sandbox1455.nationbuilder.com/api/v1/sites/sandbox1455/pages/events?access_token=' + process.env.access_token)
+  .set('Accept', 'application/json')
+  .send({
+    "event": {
+      "status": "unlisted",
+      "name": "Eventington (test)",
+      "intro": "Come see Tycho at the Trash Fence!",
+      "time_zone": "Pacific Time (US & Canada)",
+      "start_time": "2016-10-08T17:00:00-00:00",
+      "end_time": "2015-10-08T19:00:00-00:00",
+      "contact": {
+        "name": "Earl Grey",
+        "contact_phone": "1234567890",
+        "show_phone": true,
+        "contact_email": "contact@EG.com",
+        "email": "contact@EG.org",
+        "show_email": false
+    }
+  }
+})
+  .end(function(err, res){
+    if (err) {
+      console.log("I'm sorry, there's been an error creating your event: ", err)
+    } else {
+      console.log("success: ", res.body, "res status: ", res.status)
+    }
+  })
+
+/////**** Update event using a form ****//////
 
 app.post('/editedEvent', function (req, res){
   request
@@ -63,57 +80,31 @@ app.post('/editedEvent', function (req, res){
     })
 })
 
-/////////////////////////////////////
-///////add new person from form ////
-/////////////////////////////////////
-
-
-
-
-app.post('/addperson', function(req, res) { //sending back to server (/addPerson comes from the HTML form itself)
-  request.post('https://kristingillies.nationbuilder.com/api/v1/people?access_token='+ process.env.access_token)
-    .send({ person: req.body }) // person here comes from the format of JSON expected by the API
-    .set('Content-Type', 'application/json')
-    .accept('application/json') //because we're sending back to the server we need to tell it that we accept JSON. Same as above but for the returning request.
-    .end(function(err, data) {
-      // res.send(data)
-      // var response = JSON.parse(data)
-      console.log(data.body)
-      res.render('showPerson', data.body) //hbs file from views
-    })
-
-  // res.send(req.body)
-})
 
 /////////////////////////////////////
 //////////**** People ****//////////
 ///////////////////////////////////
 
 
-/////**** Find a Person ****//////
-var findPerson = function() {
-request
-  .get('https://kristingillies.nationbuilder.com/api/v1/people/match?email=kristin%40forpurpose.co.nz&access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
-  .set('Accept', 'application/json')
-  .end(function(err, res){
-    if (err) {
-      console.log('Oh no! error', err );
-    } else {
-      console.log('yay got ' + JSON.stringify(res.body))
-      console.log('Diving Deeper: ' + JSON.stringify(res.body.person.first_name),
-                                      JSON.stringify(res.body.person.last_name),
-                                      JSON.stringify(res.body.person.phone));
-    }
-  })
-}
+/////**** add new person from form ****//////
 
-//findPerson()
+
+app.post('/addperson', function(req, res) {
+  request.post('https://kristingillies.nationbuilder.com/api/v1/people?access_token='+ process.env.access_token)
+    .send({ person: req.body })
+    .set('Content-Type', 'application/json')
+    .accept('application/json')
+    .end(function(err, data) {
+      console.log(data.body)
+      res.render('confirmedAdd', data.body)
+    })
+})
 
 //////*****Create A Person ****//////
 
 var createPerson = function() {
   request
-    .post('https://kristingillies.nationbuilder.com/api/v1/people?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+    .post('https://kristingillies.nationbuilder.com/api/v1/people?access_token=' + process.env.access_token)
     .set('Accept', 'application/json')
     .send({
     "person": {
@@ -122,7 +113,7 @@ var createPerson = function() {
       "first_name": "Test2",
       "sex": "M",
       "employer": "Test2ingtons",
-    } // need to create form and send info from form in JSON format
+    }
   })
     .end(function(err, res){
       if (err) {
@@ -139,7 +130,7 @@ var createPerson = function() {
 
 var updatePerson = function() {
   request
-    .put('https://kristingillies.nationbuilder.com/api/v1/people/1259?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+    .put('https://kristingillies.nationbuilder.com/api/v1/people/1259?access_token=' + process.env.access_token)
     .set('Accept', 'application/json')
     .send({
       "person": {
@@ -162,7 +153,7 @@ var updatePerson = function() {
 
 var deletePerson = function() {
 request
-  .del('https://kristingillies.nationbuilder.com/api/v1/people/:id?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+  .del('https://kristingillies.nationbuilder.com/api/v1/people/:id?access_token=' + process.env.access_token)
   .set('Accept', 'application/json')
   .end(function(err, res){
     if (err) {
@@ -186,9 +177,8 @@ request
 var createSamplePage = function() {
 
 request
-  .post('https://kristingillies.nationbuilder.com/api/v1/sites/sandbox1455/pages/basic_pages?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
+  .post('https://kristingillies.nationbuilder.com/api/v1/sites/sandbox1455/pages/basic_pages?access_token=' + process.env.access_token)
   .set('Accept', 'application/json')
-  //.set('Content-Type', 'application/json')
   .send ({
       "basic_page": {
         "name": "A page here",
@@ -206,62 +196,6 @@ request
 }
 
 //createSamplePage()
-
-
-///**** Basic Sign-Up Page ****///
-
-var createPersonFromForm = function() {
-
-  var formData = JSON.stringify($(".addNewPerson").serializeArray());
-
-  request
-    .post("https://kristingillies.nationbuilder.com/api/v1/people?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e")
-    .set('Accept', 'application/json')
-    .send (index.formData)
-    .end(function(err, res){
-      if (err) {
-        console.log("I'm sorry, there's been an error creating a person: ", err)
-      } else {
-        console.log("success: ", res.body, "res status: ", res.status)
-      }
-    })
-
-}
-
-//createPersonFromForm()
-
-
-
-
-
-//
-// $(document).ready(function() {
-//
-//   console.log("listeners ready")
-//
-//
-//   $("#submitButton").click(function(e) {
-//     e.preventDefault()
-//
-//
-//     // request
-//     //   .post('https://kristingillies.nationbuilder.com/api/v1/people?access_token=209761d26ceb76a83161a58045cc90ad8c2fdc608e7714381a9c9e055fec249e')
-//     //   .set('Accept', 'application/json')
-//     //   .send(JSONd)
-//     //   .end(function(res, err){
-//     //     res.send('done')
-//     //  })
-//
-//   })
-
-// }) //close doc ready
-
-
-
-
-///**** Display Some People on Basic Page ****///
-
-
 
 
 
