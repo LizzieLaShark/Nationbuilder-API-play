@@ -7,22 +7,20 @@
     "postinstall": "npm run build",
     "start": "node server.js",
     "start-dev": "nodemon server.js",
-    "build": "browserify -t hbsfy ./client/index.js -o ./public/js/bundle.js -dv",
-    "watch": "watchify -t hbsfy ./client/index.js -o ./public/js/bundle.js -dv",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "node tests/unit/* | tap-spec",
     "test:integration": "forever start server.js && sleep 3 && nightwatch && forever stopall"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tandem-NZ/tandem.git"
+    "url": "https://github.com/LizzieLaShark/Nationbuilder-API-play.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tandem-NZ/tandem/issues"
+    "url": "https://github.com/LizzieLaShark/Nationbuilder-API-play/issues"
   },
-  "homepage": "https://github.com/Tandem-NZ/tandem#readme",
+  "homepage": "",
   "dependencies": {
     "bcrypt-node": "^0.1.0",
     "body-parser": "^1.15.1",
