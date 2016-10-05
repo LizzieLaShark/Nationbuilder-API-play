@@ -1,7 +1,7 @@
 {
-  "name": "nationbuilder-api-play",
+  "name": "nationbuilder-excersises",
   "version": "1.0.0",
-  "description": "getting familiar with the nationbuilder api",
+  "description": "slightly tidier version",
   "main": "server.js",
   "scripts": {
     "postinstall": "npm run build",
@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/LizzieLaShark/Nationbuilder-API-play.git"
+    "url": "https://github.com/LizzieLaShark/nationbuilder-excersises.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LizzieLaShark/Nationbuilder-API-play/issues"
+    "url": "https://github.com/LizzieLaShark/Nationbuilder-excersises/issues"
   },
   "homepage": "",
   "dependencies": {
