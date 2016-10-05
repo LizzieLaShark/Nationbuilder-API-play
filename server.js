@@ -27,64 +27,6 @@ app.get('/editEvent', function(req, res){
 
 
 
-////////////////////////////////
-////////////Events/////////////
-//////////////////////////////
-
-
-/////**** Create an event ****//////
-
-createEvent = function() {
-
-request
-  .post('https://sandbox1455.nationbuilder.com/api/v1/sites/sandbox1455/pages/events?access_token=' + process.env.access_token)
-  .set('Accept', 'application/json')
-  .send({
-    "event": {
-      "status": "unlisted",
-      "name": "Eventington (test)",
-      "intro": "Come see Tycho at the Trash Fence!",
-      "time_zone": "Pacific Time (US & Canada)",
-      "start_time": "2016-10-08T17:00:00-00:00",
-      "end_time": "2015-10-08T19:00:00-00:00",
-      "contact": {
-        "name": "Earl Grey",
-        "contact_phone": "1234567890",
-        "show_phone": true,
-        "contact_email": "contact@EG.com",
-        "email": "contact@EG.org",
-        "show_email": false
-    }
-  }
-})
-  .end(function(err, res){
-    if (err) {
-      console.log("I'm sorry, there's been an error creating your event: ", err)
-    } else {
-      console.log("success: ", res.body, "res status: ", res.status)
-    }
-  })
-}
-
-//createEvent()
-
-
-/////**** Update event using a form ****//////
-
-app.post('/eventedit', function (req, res) {
-  request
-    .put('https://sandbox1455.nationbuilder.com/api/v1/sites/sandbox1455/pages/events/26?access_token='+ process.env.access_token)
-    .send({ event: req.body })
-    .set('Content-Type', 'application/json')
-    .accept('application/json')
-    .end(function(err, data){
-      res.send(data.body)
-      console.log("this is req.body: ", req.body)
-      console.log("this is data.body: ", data.body)
-    })
-})
-
-
 /////////////////////////////////////
 //////////**** People ****//////////
 ///////////////////////////////////
@@ -169,6 +111,63 @@ request
 }
 
 //deletePerson()
+
+////////////////////////////////
+////////////Events/////////////
+//////////////////////////////
+
+
+/////**** Create an event ****//////
+
+createEvent = function() {
+
+request
+  .post('https://sandbox1455.nationbuilder.com/api/v1/sites/sandbox1455/pages/events?access_token=' + process.env.access_token)
+  .set('Accept', 'application/json')
+  .send({
+    "event": {
+      "status": "unlisted",
+      "name": "Eventington (test)",
+      "intro": "Come see Tycho at the Trash Fence!",
+      "time_zone": "Pacific Time (US & Canada)",
+      "start_time": "2016-10-08T17:00:00-00:00",
+      "end_time": "2015-10-08T19:00:00-00:00",
+      "contact": {
+        "name": "Earl Grey",
+        "contact_phone": "1234567890",
+        "show_phone": true,
+        "contact_email": "contact@EG.com",
+        "email": "contact@EG.org",
+        "show_email": false
+    }
+  }
+})
+  .end(function(err, res){
+    if (err) {
+      console.log("I'm sorry, there's been an error creating your event: ", err)
+    } else {
+      console.log("success: ", res.body, "res status: ", res.status)
+    }
+  })
+}
+
+//createEvent()
+
+
+/////**** Update event using a form ****//////
+
+app.post('/eventedit', function (req, res) {
+  request
+    .put('https://sandbox1455.nationbuilder.com/api/v1/sites/sandbox1455/pages/events/26?access_token='+ process.env.access_token)
+    .send({ event: req.body })
+    .set('Content-Type', 'application/json')
+    .accept('application/json')
+    .end(function(err, data){
+      res.send(data.body)
+      console.log("this is req.body: ", req.body)
+      console.log("this is data.body: ", data.body)
+    })
+})
 
 
 ///////////////////////////////////////
