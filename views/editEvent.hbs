@@ -1,4 +1,6 @@
+
 <form class="editEventForm" action="/editedEvent" method="post">
+
   <div>
     <label for="id">Event ID:</label>
     <input type="text" id="id" name="id" /><br>
@@ -9,6 +11,11 @@
   <div>
     <label for="name">Edit Event Name:</label>
     <input type="text" id="name" name="name" />
+  </div>
+
+  <div>
+    <label for="slug">Edit Event slug:</label>
+    <input type="text" id="slug" name="slug" />
   </div>
 
   <div>
@@ -24,5 +31,4 @@
   </div>
 
   <input class="submitButton" type="submit" value="Submit"><br>
-  <input class="testButton" type="button" value="test listeners"><br>
 </form>
