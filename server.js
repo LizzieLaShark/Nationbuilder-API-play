@@ -21,13 +21,11 @@ app.get('/newperson', function (req, res) {
   res.render('newPerson')
 })
 
-app.get('/confirmAdd', function(req, res){
-  res.render('confirmAdd')
-})
-
 app.get('/editEvent', function(req, res){
  res.render('editEvent')
 })
+
+
 
 ////////////////////////////////
 ////////////Events/////////////
@@ -70,25 +68,21 @@ request
 
 //createEvent()
 
+
 /////**** Update event using a form ****//////
 
-
-app.post('/editedEvent', function(req, res) {
-  request.put('https://kristingillies.nationbuilder.com/api/v1/sites/sandbox1455/pages/events/16?access_token='+ process.env.access_token)
-   .send({ event: req.body })
-   .set('Content-Type', 'application/json')
-   .accept('application/json')
-   .end(function(err, res){
-     console.log("req.body", req.body)
-    if (err) {
-      console.log("I'm sorry, there's been an error creating a person: ", err)
-    } else {
-      console.log("success: ", res.body)
-    }
-  })
+app.post('/eventedit', function (req, res) {
+  request
+    .put('https://sandbox1455.nationbuilder.com/api/v1/sites/sandbox1455/pages/events/26?access_token='+ process.env.access_token)
+    .send({ event: req.body })
+    .set('Content-Type', 'application/json')
+    .accept('application/json')
+    .end(function(err, data){
+      res.send(data.body)
+      console.log("this is req.body: ", req.body)
+      console.log("this is data.body: ", data.body)
+    })
 })
-
-
 
 
 /////////////////////////////////////
